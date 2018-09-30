@@ -27,7 +27,7 @@ namespace XOProject.Controller
         [HttpGet("{portfolioid}")]
         public async Task<IActionResult> GetAllTradings([FromRoute]int portFolioid)
         {
-            var trade = _tradeRepository.Query().Where(x => x.PortfolioId.Equals(portFolioid));
+            var trade = await _tradeRepository.GetAllTradings(portFolioid);
             return Ok(trade);
         }
 
@@ -42,8 +42,7 @@ namespace XOProject.Controller
         [HttpGet("Analysis/{symbol}")]
         public async Task<IActionResult> GetAnalysis([FromRoute]string symbol)
         {
-            var result = new List<TradeAnalysis>();
-            
+            var result = await _tradeRepository.GetAnalysis(symbol);
             return Ok(result);
         }
 

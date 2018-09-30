@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace XOProject
 {
     public interface IPortfolioRepository : IGenericRepository<Portfolio>
     {
-        IQueryable<Portfolio> GetAll();
+        Task<List<Portfolio>> GetAll();
     }
 }

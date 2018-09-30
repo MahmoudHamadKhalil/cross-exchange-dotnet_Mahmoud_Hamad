@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace XOProject
@@ -10,9 +12,9 @@ namespace XOProject
             _dbContext = dbContext;
         }
 
-        public IQueryable<Portfolio> GetAll()
+        public Task<List<Portfolio>> GetAll()
         {
-            return _dbContext.Portfolios.Include(x => x.Trade).AsQueryable();
+            return _dbContext.Portfolios.Include(x => x.Trade).ToListAsync();
         }
     }
 }

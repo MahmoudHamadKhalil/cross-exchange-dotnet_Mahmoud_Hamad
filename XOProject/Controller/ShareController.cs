@@ -18,7 +18,7 @@ namespace XOProject.Controller
         [HttpGet("{symbol}")]
         public async Task<IActionResult> Get([FromRoute]string symbol)
         {
-            var shares = _shareRepository.Query().Where(x => x.Symbol.Equals(symbol)).ToList();
+            var shares = await _shareRepository.GetBySymbol(symbol);
             return Ok(shares);
         }
 
@@ -26,7 +26,7 @@ namespace XOProject.Controller
         [HttpGet("{symbol}/Latest")]
         public async Task<IActionResult> GetLatestPrice([FromRoute]string symbol)
         {
-            var share = await _shareRepository.Query().Where(x => x.Symbol.Equals(symbol)).FirstOrDefaultAsync();
+            var share = (await _shareRepository.GetBySymbol(symbol)).OrderByDescending(x => x.TimeStamp).FirstOrDefault();
             return Ok(share?.Rate);
         }
 

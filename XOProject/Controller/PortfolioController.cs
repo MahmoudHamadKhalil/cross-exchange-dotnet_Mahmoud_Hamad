@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace XOProject.Controller
 {
@@ -17,8 +18,8 @@ namespace XOProject.Controller
         [HttpGet("{portFolioid}")]
         public async Task<IActionResult> GetPortfolioInfo([FromRoute]int portFolioid)
         {
-            var portfolio = _portfolioRepository.GetAll().Where(x => x.Id.Equals(portFolioid));
-            
+            var portfolio = (await _portfolioRepository.GetAll()).Where(x => x.Id.Equals(portFolioid));
+
             return Ok(portfolio);
         }
 
